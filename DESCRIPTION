@@ -2,6 +2,7 @@ Package: PeerReviewProjectWeek4
 Title: Fatality Analysis Reporting System Summaries
 Version: 0.0.0.9000
 Author: James Frech
+Maintainer: James Frech <jamesjfrech@gmail.com>
 Description: A series of functions used to summarize and plot data on a map.
              The data used is from the Fatality Analysis Reporting System on fatal car accidents in US states.
 License: GPL-3
