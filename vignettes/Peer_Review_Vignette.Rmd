@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This package contains five functions used to summarize data on fatal car accidents from yearly FARS reports.
+This package contains five functions used to summarize data on fatal car accidents from FARS reports.
 
 The first function, fars_read, is used to read in a file. This function is designed to be called by the fars_map_state function.
 
