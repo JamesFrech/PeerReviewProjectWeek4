@@ -1,0 +1,117 @@
+---
+title: "Peer_Review_Vignette"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Peer_Review_Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This package contains five functions used to summarize data on fatal car accidents from yearly FARS reports.
+
+The first function, fars_read, is used to read in a file. This function is designed to be called by the fars_map_state function.
+
+```{r fars_read}
+fars_read <- function(filename) {
+  if(!file.exists(filename))
+    stop("file '", filename, "' does not exist")
+  data <- suppressMessages({
+    readr::read_csv(filename, progress = FALSE)
+  })
+  dplyr::tbl_df(data)
+}
+
+setwd("C:/Users/james/Desktop/PeerReviewProjectWeek4")
+
+fars_read("accident_2013.csv.bz2")
+```
+
+The second function, make_filename, is used to create the name of a file to be read in to the fars_read function when called by the fars_map_state function. This function is also called by the fars_read_years function.
+
+```{r make_filename}
+make_filename <- function(year) {
+  year <- as.integer(year)
+  sprintf("accident_%d.csv.bz2", year)
+}
+
+make_filename(2013)
+```
+
+The third function, fars_read_years, returns a data frame with two columns "MONTH" and "Year". It returns the month and year for each row in the inputted data frame. If multiple years are selected, it will return a data frame for each year individually. This function is called for use in the fars_summarize_years function.
+
+```{r fars_read_years}
+fars_read_years <- function(years) {
+  lapply(years, function(year) {
+    file <- make_filename(year)
+    tryCatch({
+      dat <- fars_read(file)
+      dplyr::mutate(dat, year = year) %>% 
+        dplyr::select(MONTH, year)
+    }, error = function(e) {
+      warning("invalid year: ", year)
+      return(NULL)
+    })
+  })
+}
+
+setwd("C:/Users/james/Desktop/PeerReviewProjectWeek4")
+
+library(dplyr)
+
+fars_read_years(2013)
+```
+
+The fourth function, fars_summarize_years, summarizes the amount of fatal car accident deaths during the selected years. It will tell you how many people died each year with the rows being the months and the columns being each selected year. This function is called for by the user to analyze the data.
+
+```{r fars_summarize_years}
+library(dplyr)
+
+fars_summarize_years <- function(years) {
+  dat_list <- fars_read_years(years)
+  dplyr::bind_rows(dat_list) %>% 
+    dplyr::group_by(year, MONTH) %>% 
+    dplyr::summarize(n = n()) %>%
+    tidyr::spread(year, n)
+}
+
+setwd("C:/Users/james/Desktop/PeerReviewProjectWeek4")
+
+fars_summarize_years(c(2013,2014,2015))
+```
+
+The fifth function, fars_map_state plots the fatal car accident deaths over the duration of the specified year for a specified US state. This function is called for by the user to analyze where fatal car accidents are taking place.
+
+```{r fars_map_state}
+fars_map_state <- function(state.num, year) {
+  filename <- make_filename(year)
+  data <- fars_read(filename)
+  state.num <- as.integer(state.num)
+  
+  if(!(state.num %in% unique(data$STATE)))
+    stop("invalid STATE number: ", state.num)
+  data.sub <- dplyr::filter(data, STATE == state.num)
+  if(nrow(data.sub) == 0L) {
+    message("no accidents to plot")
+    return(invisible(NULL))
+  }
+  is.na(data.sub$LONGITUD) <- data.sub$LONGITUD > 900
+  is.na(data.sub$LATITUDE) <- data.sub$LATITUDE > 90
+  with(data.sub, {
+    maps::map("state", ylim = range(LATITUDE, na.rm = TRUE),
+              xlim = range(LONGITUD, na.rm = TRUE))
+    graphics::points(LONGITUD, LATITUDE, pch = 46)
+  })
+}
+
+setwd("C:/Users/james/Desktop/PeerReviewProjectWeek4")
+
+fars_map_state(10, 2013)
+```
