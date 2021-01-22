@@ -13,9 +13,11 @@
 #' @importFrom dplyr tbl_df
 #'
 #' @examples
+#' \dontrun{
 #' fars_read("accident_2013.csv.bz2")
 #' fars_read("accident_2014.csv.bz2")
 #' fars_read("accident_2015.csv.bz2")
+#' }
 #'
 #' @export
 fars_read <- function(filename) {
@@ -38,8 +40,10 @@ fars_read <- function(filename) {
 #' use the numerical year.
 #'
 #' @examples
+#' \dontrun{
 #' make_filename(2013)
 #' make_filename(2014)
+#' }
 #'
 #' @export
 make_filename <- function(year) {
@@ -61,8 +65,11 @@ make_filename <- function(year) {
 #' @importFrom dplyr select
 #'
 #' @examples
+#' \dontrun{
 #' fars_read_years(2015)
 #' fars_read_years(c(2014,2013,2015))
+#' }
+#'
 #' @export
 fars_read_years <- function(years) {
   lapply(years, function(year) {
@@ -94,8 +101,10 @@ fars_read_years <- function(years) {
 #' @importFrom tidyr spread
 #'
 #' @examples
+#' \dontrun{
 #' fars_summarize_years(2013)
 #' fars_summarize_years(c(2013,2014,2015))
+#' }
 #'
 #' @export
 fars_summarize_years <- function(years) {
@@ -123,8 +132,10 @@ fars_summarize_years <- function(years) {
 #' @importFrom graphics points
 #'
 #' @examples
+#' \dontrun{
 #' fars_map_state(10, 2013)
 #' fars_map_state(36, 2014)
+#' }
 #'
 #' @export
 fars_map_state <- function(state.num, year) {
