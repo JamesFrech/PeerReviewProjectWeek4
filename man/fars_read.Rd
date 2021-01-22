@@ -22,8 +22,8 @@ Will return an error if the file name does not exist in current working
 directory.
 }
 \examples{
-fars_read("accident_2013.csv.bz2")
-fars_read("accident_2014.csv.bz2")
-fars_read("accident_2015.csv.bz2")
+\dontrun{fars_read("accident_2013.csv.bz2")}
+\dontrun{fars_read("accident_2014.csv.bz2")}
+\dontrun{fars_read("accident_2015.csv.bz2")}
 
 }

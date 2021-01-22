@@ -26,7 +26,7 @@ Will return a message saying "no accidents to plot" if there were no
 accidents in the state in the year requested.
 }
 \examples{
-fars_map_state(10, 2013)
-fars_map_state(36, 2014)
+\dontrun{fars_map_state(10, 2013)}
+\dontrun{fars_map_state(36, 2014)}
 
 }

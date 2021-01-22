@@ -21,7 +21,7 @@ Summarizes the number of fatalities from car crashes each year by month.
 You will get an error if you input any years not contained in a data set.
 }
 \examples{
-fars_summarize_years(2013)
-fars_summarize_years(c(2013,2014,2015))
+\dontrun{fars_summarize_years(2013)}
+\dontrun{fars_summarize_years(c(2013,2014,2015))}
 
 }

@@ -21,6 +21,7 @@ reads in years from a data frame.
 Will return an error if any of the given years do not contain any data.
 }
 \examples{
-fars_read_years(2015)
-fars_read_years(c(2014,2013,2015))
+\dontrun{fars_read_years(2015)}
+\dontrun{fars_read_years(c(2014,2013,2015))}
+
 }

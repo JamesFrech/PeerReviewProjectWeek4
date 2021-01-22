@@ -21,7 +21,7 @@ all inputs into the parameter year will become integers, so make sure to
 use the numerical year.
 }
 \examples{
-make_filename(2013)
-make_filename(2014)
+\dontrun{make_filename(2013)}
+\dontrun{make_filename(2014)}
 
 }
