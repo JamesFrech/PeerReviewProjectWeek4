@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![Build
+Status](https://travis-ci.com/JamesFrech/PeerReviewProjectWeek4.svg?branch=main)](https://travis-ci.com/JamesFrech/PeerReviewProjectWeek4)
 <!-- badges: end -->
 
 The goal of PeerReviewProjectWeek4 is to summarize and plot data on FARS
