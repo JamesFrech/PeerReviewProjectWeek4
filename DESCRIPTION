@@ -13,5 +13,5 @@ RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown
-Imports: readr, testthat, dplyr, maps
+Imports: readr, testthat, dplyr, maps, tidyr
 VignetteBuilder: knitr
